@@ -140,14 +140,26 @@ names_2023_data <- names_2023_data %>%
 ```
 
     The phrase "4 oder weniger" was changed to the mean of the four possible 
-    values (1, 2, 3, 4). Additionally, the presence of a non-integer value 
+    values. Additionally, the presence of a non-integer value 
     indicates that the number was not obtained by counting.
 
-c)  Calculate the total number of babies born in Munich in 2022
+### c)  
+    Calculate the total number of babies born in Munich in 2022
     and 2023. Which year had the bigger baby-boom?
 
-d)  Add a new column `year` to both datasets which holds the correct
+```{r}
+total_babies_2022 <- round(sum(names_2022_data[,2]))
+total_babies_2023 <- round(sum(names_2023_data[,2]))
+diff_total_babies <- abs(total_babies_2022 - total_babies_2023)
+```
+    In the year 2022, `r total_babies_2022` babies were born. One year later, 
+    the number decreased by `r diff_total_babies` babies, totaling 
+    `r total_babies_2023` in 2023.
+    
+### d)  
+    Add a new column `year` to both datasets which holds the correct
     year for each.
+    
 
 e)  Combine both datasets into one using `bind_rows()`.
 
