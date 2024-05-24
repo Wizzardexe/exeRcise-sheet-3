@@ -4,10 +4,10 @@ subtitle: "Fortgeschrittene Statistische Software für NF"
 author: "Adrian Weghorst (12574619), Luca Wißmeyer (12555872)"
 date: "`r Sys.Date()`"
 output: 
-  distill::distill_article:
-    nop: nop
   bookdown::pdf_document2:
     number_sections: false
+  distill::distill_article:
+    nop: nop
 editor_options: 
   markdown: 
     wrap: 72
