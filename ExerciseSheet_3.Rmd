@@ -160,6 +160,13 @@ diff_total_babies <- abs(total_babies_2022 - total_babies_2023)
     Add a new column `year` to both datasets which holds the correct
     year for each.
     
+```{r}
+names_2022_data <- names_2022_data %>%
+                            mutate(year = 2022)
+names_2023_data <- names_2023_data %>%
+                            mutate(year = 2023)
+```
+    
 
 e)  Combine both datasets into one using `bind_rows()`.
 
