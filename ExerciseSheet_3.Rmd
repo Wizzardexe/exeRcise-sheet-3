@@ -264,6 +264,7 @@ Based on the data, the possible reasons for the decreasing suicide rates in the 
 3. Social and Cultural Changes: Changes in social norms and cultural attitudes towards mental health and suicide can contribute to a decline in rates.
 4. Successful Prevention Programs Countries with effective suicide prevention programs and policies in place see significant decreases in suicide rates.
 
+In total, there is a negative trend in the suicide rate for males. The trend is negative in `r nrow(negativ_trend)` countries and positive in `r nrow(positiv_trend)` countries.
 
 ### f)  Create a meaningful plot / figure with the dataset. Make sure to provide a figure caption (via the chunk options / Rmarkdown) and correctly label the figure.
 
