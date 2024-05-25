@@ -36,6 +36,9 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
+library(gganimate)
+library(transformr)
+library(gifski)
 ```
 
 ## Exercise 1: Initializing git (4 Points)
@@ -210,6 +213,13 @@ and choose a dataset that interests you. You can have a look at
 
 ```{r}
 suicide_data <- read_csv(file.path("data", "Suicide rates by sex and age (IHME, 2019).csv"), show_col_types = FALSE)
+suicide_data <- suicide_data %>%
+                        rename(
+                          male_suicide_rate_age_standardized = `Male suicide rate (age-standardized)`,
+                          female_suicide_rate_age_standardized = `Female suicide rate (age-standardized)`,
+                          country = Entity     
+                          )
+names(suicide_data) <- tolower(names(suicide_data))
 ```
 
 ### c) Put the name / title of the dataset and a link to it below.
@@ -227,13 +237,13 @@ Explanation: This question is interesting because analyzing temporal trends can 
 
 ```{r}
 compute_trend_m <- function(data) {
-  model <- lm(`Male suicide rate (age-standardized)` ~ Year, data = data)
+  model <- lm(male_suicide_rate_age_standardized ~ year, data = data)
   trend <- coef(model)[2]  # Slope of the trend
   return(trend)
 }
 
 trends_male <- suicide_data %>%
-                      group_by(Entity) %>%
+                      group_by(country) %>%
                       summarise(trend = as.numeric(compute_trend_m(cur_data())))
 
 negativ_trend <- trends_male %>%
@@ -275,7 +285,42 @@ Based on the data, the possible reasons for the decreasing suicide rates in the 
 ### f)  Create a meaningful plot / figure with the dataset. Make sure to provide a figure caption (via the chunk options / Rmarkdown) and correctly label the figure.
 
 ```{r}
+# Data sourced from https://www.imf.org/en/Publications/WEO/weo-database/2024/April/download-entire-database
+country_data <- data.frame(
+  country = c('United States', 'China', 'Japan', 'Germany', 'India', 'United Kingdom', 'France', 'Italy', 'Brazil', 'Canada'),
+  Nominal_GDP_in_trillions_USD = c(25.35, 17.73, 4.94, 4.22, 3.18, 3.13, 3.06, 2.1, 1.83, 1.74)
+)
+```
 
+
+```{r fig.cap="Suicide Rates in the Top 10 Nominal GDP Countries (1990-2017)"}
+gdp_suicide_data <- inner_join(suicide_data, country_data, by = "country")
+
+anim <- ggplot(
+  data = gdp_suicide_data,
+  mapping = aes(
+    x = female_suicide_rate_age_standardized,
+    y = male_suicide_rate_age_standardized,
+    color = country
+  )
+) + 
+  geom_point() +
+  labs(
+    title = "Year: {round(frame_time)}",
+    x = "Female Suicide Rate",
+    y = "Male Suicide Rate",
+    color = "Country"
+  ) +
+  theme_bw() +
+  transition_time(year)
+
+animate(
+  anim,
+  duration = 20, fps = 16,
+  height = 4, width = 5,
+  units = "in", res = 400,
+  renderer = gifski_renderer("gapminder_slowed.gif")
+)
 ```
 
 ## Final Note
