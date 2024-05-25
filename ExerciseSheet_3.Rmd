@@ -199,10 +199,18 @@ This exercise is a bit more open-ended. You can choose any dataset from
 [Our World in Data](https://ourworldindata.org/) and analyze it, while
 determining the research question yourself.
 
-a)  Go to <https://github.com/owid/owid-datasets/tree/master/datasets>
+### a)  
+    Go to <https://github.com/owid/owid-datasets/tree/master/datasets>
     and choose a dataset that interests you. You can have a look at
     <https://ourworldindata.org/> to gather some inspiration.
-b)  Download the dataset and track it in git.
+    
+### b)  
+    Download the dataset and track it in git.
+    
+```{r}
+suicide_data <- read_csv(file.path("data", "Suicide rates by sex and age (IHME, 2019).csv"), show_col_types = FALSE)
+```
+    
 c)  Put the name / title of the dataset and a link to it below.
 
 -   Dataset Name: ...
