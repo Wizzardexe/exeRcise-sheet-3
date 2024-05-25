@@ -217,14 +217,24 @@ suicide_data <- read_csv(file.path("data", "Suicide rates by sex and age (IHME, 
 -   Dataset Name: Suicide rates by sex and age (IHME, 2019)
 -   Link: [Link to Github](https://github.com/owid/owid-datasets/tree/master/datasets/Suicide%20rates%20by%20sex%20and%20age%20(IHME%2C%202019))
 
-d)  Come up with a (research) question you want to answer with the data
-    and briefly explain why you believe this is an interesting question
-    within one sentence. It should be a question that can be answered
-    with the dataset and using R.
-e)  Use R to answer your chosen question.
-f)  Create a meaningful plot / figure with the dataset. Make sure to
-    provide a figure caption (via the chunk options / Rmarkdown) and
-    correctly label the figure.
+### d)  Come up with a (research) question you want to answer with the data and briefly explain why you believe this is an interesting question within one sentence. It should be a question that can be answered with the dataset and using R.
+
+Research Question: What is the trend of the male suicide rates over time in different countries?
+
+Explanation: This question is interesting because analyzing temporal trends can reveal changes in the prevalence of suicide among various demographics, helping to assess the effectiveness of past interventions and inform future strategies.
+
+### e)  Use R to answer your chosen question.
+
+```{r}
+
+```
+
+
+### f)  Create a meaningful plot / figure with the dataset. Make sure to provide a figure caption (via the chunk options / Rmarkdown) and correctly label the figure.
+
+```{r}
+
+```
 
 ## Final Note
 
