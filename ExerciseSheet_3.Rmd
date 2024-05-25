@@ -91,7 +91,6 @@ For this task you will upload your solution to GitHub.
 
 ### b) Push your code to this new repository by copying and executing the snippet on github listed under `…or push an existing repository from the command line`.
 
-
 ### c) Regularly push your latest changes to GitHub again and especially do so when you are finished with this sheet.
 
 
@@ -105,12 +104,7 @@ Link: <https://opendata.muenchen.de/dataset/vornamen-von-neugeborenen>
 
 ### a) Download the data for both years and track it in git. For small datasets like these adding them to git is not a problem.
 
-        
-
-
-
 ### b)
-
          
 Load the data for both years into R. Check the type of the count
 variable ("Anzahl") and look into the data to determine why it is
@@ -159,9 +153,6 @@ the number decreased by `r diff_total_babies` babies, totaling
 
 ### d) Add a new column `year` to both datasets which holds the correct year for each.
 
-        
-
-
 
 ```{r}
 names_2022_data <- names_2022_data %>%
@@ -170,21 +161,13 @@ names_2023_data <- names_2023_data %>%
                             mutate(year = 2023)
 ```
 
-### e)
-
-        
-Combine both datasets into one using `bind_rows()`.
-
+### e) Combine both datasets into one using `bind_rows()`.
 
 ```{r}
 names_2022_2023_data <- bind_rows(names_2022_data, names_2023_data)
 ```
 
 ### f) Combine the counts for same names to determine the most popular names across both years. Print out the top 10 names in a nicely formatted table for both years. Include a table caption.
-
-        
-
-
 
 ```{r}
 names_2022_2023_data %>%
@@ -194,7 +177,7 @@ names_2022_2023_data %>%
             ) %>%
             arrange(desc(count)) %>%
             head(10) %>%
-            knitr::kable(col.names = c("surname", "count"), caption = "Top 10 Baby Names in Munich for 2022/23")
+            knitr::kable(col.names = c("Surname", "Count"), caption = "Top 10 Baby Names in Munich for 2022/23")
 ```
 
 ## Exercise 4: Open Analysis (4 points)
@@ -293,7 +276,7 @@ country_data <- data.frame(
 ```
 
 
-```{r fig.cap="Suicide Rates in the Top 10 Nominal GDP Countries (1990-2017)"}
+```{r fig.cap="Suicide Rates per 100,000 in Top 10 Nominal GDP Countries (1990-2017)"}
 gdp_suicide_data <- inner_join(suicide_data, country_data, by = "country")
 
 anim <- ggplot(
@@ -316,7 +299,7 @@ anim <- ggplot(
 
 animate(
   anim,
-  duration = 20, fps = 16,
+  duration = 25, fps = 20,
   height = 4, width = 5,
   units = "in", res = 400,
   renderer = gifski_renderer("gapminder_slowed.gif")
