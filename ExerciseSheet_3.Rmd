@@ -219,15 +219,57 @@ suicide_data <- read_csv(file.path("data", "Suicide rates by sex and age (IHME, 
 
 ### d)  Come up with a (research) question you want to answer with the data and briefly explain why you believe this is an interesting question within one sentence. It should be a question that can be answered with the dataset and using R.
 
-Research Question: What is the trend of the male suicide rates over time in different countries?
+Research Question: What is the trend of the male suicide rates over time in different countries and regions?
 
 Explanation: This question is interesting because analyzing temporal trends can reveal changes in the prevalence of suicide among various demographics, helping to assess the effectiveness of past interventions and inform future strategies.
 
 ### e)  Use R to answer your chosen question.
 
 ```{r}
+compute_trend_m <- function(data) {
+  model <- lm(`Male suicide rate (age-standardized)` ~ Year, data = data)
+  trend <- coef(model)[2]  # Slope of the trend
+  return(trend)
+}
 
+trends_male <- suicide_data %>%
+                      group_by(Entity) %>%
+                      summarise(trend = as.numeric(compute_trend_m(cur_data())))
+
+negativ_trend <- trends_male %>%
+                      filter(trend <= 0) %>%
+                      arrange(trend) 
+            
+positiv_trend <- trends_male %>%
+                      filter(trend > 0) %>%
+                      arrange(desc(trend)) 
+
+positiv_trend %>%
+      head(15) %>%
+      knitr::kable(col.names = c("Country", "Increase"), caption = "Trend of the top 15 Counties/Regions with increasing Suicides per Year")
 ```
+
+Based on the data, the possible reasons for the increasing suicide rates in the top 15 countries/regions appear to be:
+
+1. High Levels of Stress or Pressure: Countries with high societal, academic, or work-related pressure tend to have higher suicide rates.
+2. Economic Hardship: Countries facing severe economic difficulties often see higher suicide rates due to financial stress and related issues.
+3. Social and Cultural Factors: Social issues, such as domestic violence, substance abuse, and cultural stigma around mental health, significantly impact suicide rates.
+4. Lack of Mental Health Resources: Countries with inadequate mental health infrastructure and support systems often have higher suicide rates due to the lack of available help.
+
+
+
+```{r}
+negativ_trend %>%
+      head(15) %>%
+      knitr::kable(col.names = c("Country", "Decrease"), caption = "Trend of the top 15 Counties/Regions with decreasing Suicides per Year")
+```
+
+Based on the data, the possible reasons for the decreasing suicide rates in the top 15 countries/regions appear to be:
+
+1. Improved Mental Health Resources: Countries with better access to mental health care and resources often see a reduction in suicide rates.
+2. Economic Stability: Economic stability can lead to a decrease in suicide rates as financial stress diminishes.
+3. Social and Cultural Changes: Changes in social norms and cultural attitudes towards mental health and suicide can contribute to a decline in rates.
+4. Successful Prevention Programs Countries with effective suicide prevention programs and policies in place see significant decreases in suicide rates.
 
 
 ### f)  Create a meaningful plot / figure with the dataset. Make sure to provide a figure caption (via the chunk options / Rmarkdown) and correctly label the figure.
