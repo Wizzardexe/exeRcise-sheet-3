@@ -290,7 +290,7 @@ anim <- ggplot(
 ) + 
   geom_point() +
   labs(
-    title = "Year: {round(frame_time)}",
+    title = "Year: {floor(frame_time)}",
     x = "Female Suicide Rate",
     y = "Male Suicide Rate",
     color = "Country"
