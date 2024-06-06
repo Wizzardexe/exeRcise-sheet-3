@@ -119,7 +119,7 @@ names_2023_data <- read.csv(file.path("data", "vornamen-muenchen-2023.csv"))
 ```
 
         
-The datatype for "Anzahl" is r typeof(names_2022_data[,2]). The character 
+The datatype for "Anzahl" is `r typeof(names_2022_data[,2])`. The character 
 type was used because names with fewer than 5 appearances were categorized 
 as "4 oder weniger".
 
@@ -141,9 +141,10 @@ indicates that the number was not obtained by counting.
 
 
 ```{r}
-total_babies_2022 <- round(sum(names_2022_data[,2]))
-total_babies_2023 <- round(sum(names_2023_data[,2]))
+total_babies_2022 <- abs(round(sum(names_2022_data[,2])))
+total_babies_2023 <- abs(round(sum(names_2023_data[,2])))
 diff_total_babies <- abs(total_babies_2022 - total_babies_2023)
+options(scipen = 999)
 ```
 
 In the year 2022, `r total_babies_2022` babies were born. One year later, 
