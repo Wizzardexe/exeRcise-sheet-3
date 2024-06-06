@@ -39,6 +39,7 @@ library(tidyverse)
 library(gganimate)
 library(transformr)
 library(gifski)
+library(readr)
 ```
 
 ## Exercise 1: Initializing git (4 Points)
@@ -196,7 +197,8 @@ and choose a dataset that interests you. You can have a look at
 ### b) Download the dataset and track it in git.
 
 ```{r}
-suicide_data <- read_csv(file.path("data", "Suicide rates by sex and age (IHME, 2019).csv"), show_col_types = FALSE)
+csv_url <- "https://raw.githubusercontent.com/owid/owid-datasets/master/datasets/Suicide%20rates%20by%20sex%20and%20age%20(IHME%2C%202019)/Suicide%20rates%20by%20sex%20and%20age%20(IHME%2C%202019).csv"
+suicide_data<- readr::read_csv(csv_url, show_col_types = FALSE)
 suicide_data <- suicide_data %>%
                         rename(
                           male_suicide_rate_age_standardized = `Male suicide rate (age-standardized)`,
